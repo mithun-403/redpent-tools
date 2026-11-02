@@ -1,0 +1,11 @@
+# Never commit live scope or collected evidence.
+scope.yaml
+evidence/
+*.pyc
+__pycache__/
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.DS_Store
+build/

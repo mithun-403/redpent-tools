@@ -1,0 +1,15 @@
+admin
+login
+api
+.git/config
+robots.txt
+.env
+backup
+test
+dev
+staging
+dashboard
+wp-admin
+phpinfo.php
+server-status
+.well-known/security.txt

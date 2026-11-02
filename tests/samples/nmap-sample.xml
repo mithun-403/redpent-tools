@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<nmaprun scanner="nmap" args="nmap -sV example">
+  <host>
+    <address addr="203.0.113.5" addrtype="ipv4"/>
+    <ports>
+      <port protocol="tcp" portid="22">
+        <state state="open"/>
+        <service name="ssh" product="OpenSSH" version="8.9"/>
+      </port>
+      <port protocol="tcp" portid="80">
+        <state state="open"/>
+        <service name="http" product="nginx" version="1.24"/>
+      </port>
+      <port protocol="tcp" portid="81">
+        <state state="closed"/>
+        <service name="hosts2-ns"/>
+      </port>
+    </ports>
+  </host>
+</nmaprun>

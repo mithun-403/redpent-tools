@@ -1,0 +1,32 @@
+# redpent-tools — one-command HTTP MCP service.
+#
+#   docker compose up -d --build
+#   docker compose logs redpent-tools      # <- the auto-generated API key (rpk_…) is printed here
+#
+# The service listens on http://localhost:8971/mcp and requires that key
+# (header X-API-Key: rpk_…). Point RedPentAI (or any MCP client) at it.
+#
+# To pin your own key instead of auto-generating one, set REDPENT_API_KEY below.
+services:
+  redpent-tools:
+    build: .
+    image: redpent-tools:latest
+    container_name: redpent-tools
+    restart: unless-stopped
+    ports:
+      - "8971:8971"
+    environment:
+      REDPENT_HTTP_PORT: "8971"
+      # REDPENT_API_KEY: "rpk_set-your-own-to-skip-autogen"
+    volumes:
+      # Ships the example scope so `up` works on a clean clone. Copy it to scope.yaml,
+      # edit it for your engagement, and change this to ./scope.yaml:/app/scope.yaml:ro.
+      # Until a real scope is set the service lists tools but DENIES every target.
+      - ./scope.example.yaml:/app/scope.yaml:ro
+      # Persist the generated API key + evidence across restarts:
+      - redpent-data:/data
+      - redpent-evidence:/app/evidence
+
+volumes:
+  redpent-data:
+  redpent-evidence:

@@ -1,0 +1,43 @@
+# redpent-tools scope — copy to scope.yaml and edit per engagement.
+# This file is the safety contract. out_of_scope ALWAYS wins. Active tools stay
+# disabled until active_allowed is true AND the current time is inside active_window.
+
+engagement_id: EXAMPLE-2026-001
+roe_reference: "RoE signed 2026-01-01, ref SOW-123"
+tester: "mithun"
+
+# Domains. "*.example.com" matches any subdomain; "example.com" matches exactly.
+in_scope_domains:
+  - example.com
+  - "*.example.com"
+
+# IP ranges you are authorized to touch.
+in_scope_cidrs:
+  - 203.0.113.0/24
+
+# Always wins over everything above. Domains, IPs, or CIDRs.
+out_of_scope:
+  - admin.example.com
+  - 203.0.113.10/32
+  - 198.51.100.0/24
+
+# ---- Active testing gate (nmap / masscan / ffuf / nikto) --------------------
+active_allowed: false            # flip to true ONLY when RoE covers active testing
+active_window:
+  start: "2026-01-15T09:00:00+05:30"
+  end:   "2026-01-15T18:00:00+05:30"
+
+# ---- Rate / intensity clamps (hard upper bounds) ---------------------------
+limits:
+  masscan_max_rate: 1000
+  ffuf_max_threads: 10
+  nmap_max_timing: 4
+  sqlmap_max_level: 3     # sqlmap --level cap (1..5)
+  sqlmap_max_risk: 2      # sqlmap --risk cap  (1..3)
+  commix_max_level: 2     # commix --level cap (1..3)
+
+# Allow nmap NSE categories brute/dos/intrusive/exploit/vuln (default: false).
+allow_intrusive_nse: false
+
+# Return harvested emails unmasked (default: false -> masked as a***@domain).
+allow_email_output: false
