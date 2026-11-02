@@ -20,7 +20,7 @@ It keeps three lanes — **PASSIVE → BOUNDARY → ACTIVE** — and enforces th
 ## Quickstart (Docker)
 
 ```bash
-git clone https://github.com/<owner>/redpent-tools.git && cd redpent-tools
+git clone https://github.com/mithun-403/redpent-tools.git && cd redpent-tools
 docker compose up -d --build
 docker compose logs redpent-tools     # copy the auto-generated API key: rpk_…
 # → service at http://localhost:8971/mcp  (header  X-API-Key: rpk_…)
